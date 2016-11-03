@@ -2,6 +2,7 @@
 
 //Dependency: A PlayerMotor component is attached to the gameobject w/e.
 [RequireComponent(typeof(PlayerMotor))]
+
 public class PlayerController : MonoBehaviour {
 
 	[SerializeField]
