@@ -6,9 +6,10 @@ class MyManager : NetworkManager
 {
     public GameObject prefabPlayer = null;
     public GameObject prefabAlien = null;
-    public bool first = true;
 
- 
+	public GameObject position_man = null;
+	public GameObject position_alien = null;
+    public bool first = true;
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
@@ -19,17 +20,14 @@ class MyManager : NetworkManager
         {
             prefab = prefabPlayer;
             first = false;
-            spawn_pos = new Vector3(0, 0, -5);
+			spawn_pos = position_man.transform.position;
         }
         else
         {
             prefab = prefabAlien;
-            playerControllerId += 1;
-            spawn_pos = new Vector3(0, 0, 5);
+			spawn_pos = position_alien.transform.position;
         }
         GameObject player = (GameObject)Instantiate(prefab, spawn_pos, Quaternion.identity);
-
-        //GameObject player = (GameObject)Instantiate(playerPrefab, spawn_pos, Quaternion.identity);
         NetworkServer.AddPlayerForConnection(conn, player, 0);
     }
 }
