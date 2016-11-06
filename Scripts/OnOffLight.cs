@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Light))]
 [RequireComponent(typeof(Collider))]
@@ -16,13 +17,18 @@ public class OnOffLight : MonoBehaviour {
 	}
 
 	void Update () {
-		//Turning on/off the light
-		if (Input.GetButtonDown ("Fire1")) 
+		my_collider.enabled = is_on;
+		my_light.enabled = is_on;
+	}
+
+	void OnTriggerStay(Collider collide_with)
+	{
+		if (collide_with.gameObject.tag == "Alien") 
 		{
-			//Debug.Log (is_on);
-			is_on = !is_on;
-			my_collider.enabled = is_on;
-			my_light.enabled = is_on;
+			if (collide_with.gameObject.GetComponent<ActionsAlien> ().moving == true) 
+			{
+				SceneManager.LoadScene(0);
+			}
 		}
 	}
 }
