@@ -10,8 +10,11 @@ public class OnOffLight : MonoBehaviour {
 	private Collider my_collider;
 	private bool is_on = true;
 
+	public GameObject respawn;
+
 	void Start()
 	{
+		respawn = GameObject.FindGameObjectWithTag ("SpawnAlien");
 		my_light = GetComponent<Light> ();
 		my_collider = GetComponent<Collider> ();
 	}
@@ -27,7 +30,7 @@ public class OnOffLight : MonoBehaviour {
 		{
 			if (collide_with.gameObject.GetComponent<ActionsAlien> ().moving == true) 
 			{
-				SceneManager.LoadScene(0);
+				collide_with.gameObject.transform.position = respawn.transform.position;
 			}
 		}
 	}
